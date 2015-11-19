@@ -1,0 +1,15 @@
+package com.mitchell.rest;
+
+import javax.ws.rs.Path;
+
+@Path("/claim")
+public class HomeController {
+	
+@Path("/all")
+public String getall(){
+	
+	return null;
+}
+	
+
+}

@@ -21,3 +21,17 @@
 0:0:0:0:0:0:0:1 - - [19/Nov/2015:09:54:48 -0800] "GET /Mitchell-ClaimWS/api HTTP/1.1" 404 1010
 0:0:0:0:0:0:0:1 - - [19/Nov/2015:09:55:12 -0800] "GET /Mitchell-ClaimWS/api HTTP/1.1" 404 1010
 0:0:0:0:0:0:0:1 - - [19/Nov/2015:09:55:16 -0800] "GET /Mitchell-ClaimWS/api HTTP/1.1" 404 1010
+127.0.0.1 - - [19/Nov/2015:10:03:24 -0800] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:03:51 -0800] "GET /Mitchell-ClaimWS/index.html HTTP/1.1" 200 150
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:03:59 -0800] "GET /Mitchell-ClaimWS/api HTTP/1.1" 404 1010
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:26:25 -0800] "GET /Mitchell-ClaimWS/Api HTTP/1.1" 404 1034
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:29:28 -0800] "GET /Mitchell-ClaimWS/api HTTP/1.1" 404 1010
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:29:34 -0800] "GET /Mitchell-ClaimWS/api/claims/all HTTP/1.1" 404 1010
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:29:36 -0800] "GET /Mitchell-ClaimWS/api/claims/all HTTP/1.1" 404 1010
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:29:44 -0800] "GET /Mitchell-ClaimWS/api/claim/all HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:29:49 -0800] "GET /Mitchell-ClaimWS/api/claim/all HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:30:24 -0800] "GET /Mitchell-ClaimWS/api/claims/all HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:30:28 -0800] "GET /Mitchell-ClaimWS/api/claims/all HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:31:12 -0800] "GET /Mitchell-ClaimWS/api/claims/all HTTP/1.1" 204 -
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:31:18 -0800] "GET /Mitchell-ClaimWS/ HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [19/Nov/2015:10:31:23 -0800] "GET /Mitchell-ClaimWS/api HTTP/1.1" 404 1010

@@ -1,0 +1,34 @@
+package com.mitchell.dao;
+
+import java.util.List;
+
+import com.mitchell.model.Claim;
+
+public class ClaimImpliDAO implements claimDAO {
+
+	@Override
+	public String insert(String data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<Claim> retriveData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Claim retriveRecordData(String claimNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String update(String data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}

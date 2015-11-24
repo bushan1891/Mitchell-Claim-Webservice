@@ -8,7 +8,6 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import com.mitchell.model.Claim;
-import com.mitchell.model.test;
 @Path("/claim")
 
 public class HomeController {
@@ -20,6 +19,7 @@ public class HomeController {
 		int i=5;
 	    Claim c = new Claim();
 		
+	    
 		return new JAXBElement<Claim>(new QName("c"), Claim.class, c);
 	}
 	

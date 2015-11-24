@@ -1,0 +1,12 @@
+package com.mitchell.dao;
+import java.util.List;
+
+import com.mitchell.model.Claim;
+
+public interface claimDAO {
+
+	public String insert(String data);
+	public List<Claim> retriveData();
+	public Claim retriveRecordData(String claimNumber);
+	public String update(String data);
+}

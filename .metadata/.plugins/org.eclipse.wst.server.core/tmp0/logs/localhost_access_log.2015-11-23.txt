@@ -1,0 +1,6 @@
+127.0.0.1 - - [23/Nov/2015:22:19:18 -0800] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [23/Nov/2015:22:19:58 -0800] "GET /RESTApp/api/claim/all HTTP/1.1" 200 104
+0:0:0:0:0:0:0:1 - - [23/Nov/2015:22:19:59 -0800] "GET /favicon.ico HTTP/1.1" 404 1016
+127.0.0.1 - - [23/Nov/2015:23:00:18 -0800] "GET / HTTP/1.1" 404 994
+0:0:0:0:0:0:0:1 - - [23/Nov/2015:23:00:19 -0800] "GET /RESTApp/WEB-INF/classes/com/mitchell/dao/ClaimImpliDAO.java HTTP/1.1" 404 992
+0:0:0:0:0:0:0:1 - - [23/Nov/2015:23:00:31 -0800] "GET /RESTApp/api/claim/all HTTP/1.1" 200 104

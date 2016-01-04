@@ -1,0 +1,39 @@
+package com.mitchell.Utils;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import com.mitchell.JXAB.model.MitchellClaim;
+import com.mitchell.JXAB.model.MitchellClaim.Vehicles;
+import com.mitchell.model.Claim;
+import com.mitchell.model.*;
+public class JAXBtoOBJ {
+
+	public static Claim toObj(MitchellClaim m){
+		Claim c = new Claim();
+		Set<Vehicle> v = new  HashSet<Vehicle>();
+		
+		c.setAssignedAdjusterId(m.getAssignedAdjusterID());
+		c.setClaimNumber(m.getClaimNumber());
+		c.setFirstName(m.getClaimantFirstName());
+		c.setLastName(m.getClaimantLastName());
+		c.setLossDate(m.getLossDate());
+		c.setLossDescription(m.getLossInfo().toString());
+		c.setStatus(m.getStatus());
+		
+		
+		Vehicles vjaxb = (Vehicles) c.getVehicle();
+		/*Vehicle vhiber = new Vehicle(vjaxb.getVehicleDetails().getModelYear(),vjaxb.getVehicleDetails().getMakeDescription(),vjaxb.getVehicleDetails().getModelDescription(),vjaxb.getVehicleDetails().getEngineDescription(),vjaxb.getVehicleDetails().getExteriorColor(),
+				vjaxb.getVehicleDetails().getLicPlate(),vjaxb.getVehicleDetails().getLicPlateState(),vjaxb.getVehicleDetails().getDamageDescription(), vjaxb.getVehicleDetails().getMileage(), c);
+		v.add(vhiber);*/
+		
+		c.setVehicle(v);
+		
+		return c;
+		
+	}
+	
+	
+	
+}

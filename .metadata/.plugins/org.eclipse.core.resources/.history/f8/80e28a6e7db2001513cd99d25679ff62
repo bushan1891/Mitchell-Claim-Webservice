@@ -1,0 +1,53 @@
+package com.mitchell.dao;
+
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import com.mitchell.model.Claim;
+import com.mitchell.model.Vehicle;
+import com.mysql.jdbc.Connection;
+import com.mitchell.dao.*;
+import com.mitchell.exception.AppException;
+import com.mitchell.JXAB.model.MitchellClaim;
+import com.mitchell.Utils.*;
+
+public class ClaimImpliDAO implements claimDAO {
+
+	@Override
+	public Claim insert(MitchellClaim data) {
+		
+		
+		
+		
+		
+		
+		return null;
+	}
+
+	@Override
+	public List<Claim> retriveData() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Claim retriveRecordData(String claimNumber) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String update(String data) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+}

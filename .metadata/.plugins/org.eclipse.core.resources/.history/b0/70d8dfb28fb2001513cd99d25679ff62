@@ -1,0 +1,122 @@
+package com.mitchell.model;
+
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Transient;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.datatype.XMLGregorianCalendar;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.mitchell.JXAB.model.MitchellClaim.LossInfo;
+import com.mitchell.JXAB.model.MitchellClaim.Vehicles;
+
+@XmlRootElement
+@Entity
+public class Claim implements java.io.Serializable{
+
+	private static final long serialVersionUID = 1L;
+@Id
+	private String claimNumber;
+	private String firstName;
+	private String lastName;
+	private String status;
+	@Column(name = "DATETIMEITEM")
+	@Transient
+	private XMLGregorianCalendar lossDate;
+	private String causeOfLoss;
+	private Date reportedDate;
+	@Transient
+	private LossInfo lossDescription;
+	private int assignedAdjusterId;	
+	
+	
+	private Vehicles vehicle;
+	
+	public Claim() {};
+	
+	public String getClaimNumber() {
+		return claimNumber;
+	}
+	
+	public void setClaimNumber(String claimNumber) {
+		this.claimNumber = claimNumber;
+	}
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+	
+	public String getLastName() {
+		return lastName;
+	}
+	
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	
+	public String getStatus() {
+		return status;
+	}
+	
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	@Transient
+	public XMLGregorianCalendar getLossDate() {
+		return lossDate;
+	}
+	
+	public void setLossDate(XMLGregorianCalendar xmlGregorianCalendar) {
+		this.lossDate = xmlGregorianCalendar;
+	}
+	
+	public String getCauseOfLoss() {
+		return causeOfLoss;
+	}
+	
+	public void setCauseOfLoss(String causeOfLoss) {
+		this.causeOfLoss = causeOfLoss;
+	}
+	
+	public Date getReportedDate() {
+		return reportedDate;
+	}
+	
+	public void setReportedDate(Date reportedDate) {
+		this.reportedDate = reportedDate;
+	}
+	
+	public LossInfo getLossDescription() {
+		return lossDescription;
+	}
+	
+	public void setLossDescription(LossInfo lossInfo) {
+		this.lossDescription = lossInfo;
+	}
+	
+	public int getAssignedAdjusterId() {
+		return assignedAdjusterId;
+	}
+	
+	public void setAssignedAdjusterId(int value) {
+		this.assignedAdjusterId = value;
+	}
+	
+	public void setVehicle(Vehicles vehicles) {
+		this.vehicle = vehicles;
+	}
+	
+	@JsonManagedReference
+	public Vehicles getVehicle() {
+		return this.vehicle;
+	}
+	
+}

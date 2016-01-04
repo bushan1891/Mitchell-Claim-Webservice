@@ -3,20 +3,36 @@ package com.mitchell.model;
 
 import java.util.Date;
 import java.util.Set;
-
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
-
+import javax.xml.datatype.XMLGregorianCalendar;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-@XmlRootElement 
+import com.mitchell.JXAB.model.MitchellClaim.LossInfo;
+import com.mitchell.JXAB.model.MitchellClaim.Vehicles;
+
+@XmlRootElement
+@Entity
+@Table(name = "CLAIM")
 public class Claim implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;
+	
 	
 	private String claimNumber;
 	private String firstName;
 	private String lastName;
 	private String status;
-	private Date lossDate;
+	@Transient
+	private XMLGregorianCalendar lossDate;
 	private String causeOfLoss;
 	private Date reportedDate;
 	private String lossDescription;
@@ -25,9 +41,18 @@ public class Claim implements java.io.Serializable{
 	
 	public Claim() {};
 	
+	@Id
+    @Column(name = "CLAIM_ID")
 	public String getClaimNumber() {
 		return claimNumber;
 	}
+	 @OneToMany(cascade = CascadeType.ALL)
+	    @JoinTable(
+	            name = "CLAIM_VEHICLE",
+	            joinColumns = @JoinColumn(name = "CLAIM_ID"),
+	            inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID")
+	    )
+	
 	
 	public void setClaimNumber(String claimNumber) {
 		this.claimNumber = claimNumber;
@@ -56,13 +81,13 @@ public class Claim implements java.io.Serializable{
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	
-	public Date getLossDate() {
+	@Transient
+	public XMLGregorianCalendar getLossDate() {
 		return lossDate;
 	}
 	
-	public void setLossDate(Date lossDate) {
-		this.lossDate = lossDate;
+	public void setLossDate(XMLGregorianCalendar xmlGregorianCalendar) {
+		this.lossDate = xmlGregorianCalendar;
 	}
 	
 	public String getCauseOfLoss() {
@@ -85,8 +110,8 @@ public class Claim implements java.io.Serializable{
 		return lossDescription;
 	}
 	
-	public void setLossDescription(String lossDescription) {
-		this.lossDescription = lossDescription;
+	public void setLossDescription(String lossInfo) {
+		this.lossDescription = lossInfo;
 	}
 	
 	public int getAssignedAdjusterId() {
@@ -97,11 +122,18 @@ public class Claim implements java.io.Serializable{
 		this.assignedAdjusterId = value;
 	}
 	
+	
 	public void setVehicle(Set<Vehicle> vechicle) {
 		this.vehicle = vechicle;
 	}
 	
 	@JsonManagedReference
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinTable(
+	        name = "CATEGORY_ARTICLE",
+	        joinColumns = @JoinColumn(name = "CLAIM_ID"),
+	        inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID")
+	)
 	public Set<Vehicle> getVehicle() {
 		return this.vehicle;
 	}

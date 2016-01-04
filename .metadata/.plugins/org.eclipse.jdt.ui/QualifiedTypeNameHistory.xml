@@ -1,5 +1,41 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-<fullyQualifiedTypeName name="org.glassfish.jersey.server.ResourceConfig"/>
-<fullyQualifiedTypeName name="javax.ws.rs.ApplicationPath"/>
+<fullyQualifiedTypeName name="com.mitchell.dao.ClaimImpliDAO"/>
+<fullyQualifiedTypeName name="javax.ws.rs.PathParam"/>
+<fullyQualifiedTypeName name="java.sql.Date"/>
+<fullyQualifiedTypeName name="com.mitchell.model.Vehicle"/>
+<fullyQualifiedTypeName name="javax.ws.rs.Consumes"/>
+<fullyQualifiedTypeName name="com.mitchell.Utils.HibernateUtil"/>
+<fullyQualifiedTypeName name="org.hibernate.SessionFactory"/>
+<fullyQualifiedTypeName name="org.hibernate.Session"/>
+<fullyQualifiedTypeName name="org.hibernate.Session.LockRequest"/>
+<fullyQualifiedTypeName name="javax.xml.validation.SchemaFactory"/>
+<fullyQualifiedTypeName name="javax.xml.transform.stream.StreamSource"/>
+<fullyQualifiedTypeName name="javax.xml.validation.Schema"/>
+<fullyQualifiedTypeName name="javax.validation.Validator"/>
+<fullyQualifiedTypeName name="org.xml.sax.SAXException"/>
+<fullyQualifiedTypeName name="javax.xml.bind.JAXBContext"/>
+<fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="javax.xml.validation.Validator"/>
+<fullyQualifiedTypeName name="javax.xml.bind.Unmarshaller"/>
+<fullyQualifiedTypeName name="com.mitchell.Utils.JAXBtoOBJ"/>
+<fullyQualifiedTypeName name="com.mitchell.model.Claim"/>
+<fullyQualifiedTypeName name="com.mitchell.JXAB.model.MitchellClaim"/>
+<fullyQualifiedTypeName name="javax.xml.bind.Marshaller"/>
+<fullyQualifiedTypeName name="java.io.StringWriter"/>
+<fullyQualifiedTypeName name="javax.ws.rs.PUT"/>
+<fullyQualifiedTypeName name="javax.ws.rs.DELETE"/>
+<fullyQualifiedTypeName name="org.hibernate.mapping.Set"/>
+<fullyQualifiedTypeName name="javax.persistence.CascadeType"/>
+<fullyQualifiedTypeName name="javax.persistence.JoinTable"/>
+<fullyQualifiedTypeName name="javax.persistence.OneToMany"/>
+<fullyQualifiedTypeName name="javax.persistence.Table"/>
+<fullyQualifiedTypeName name="javax.persistence.Entity"/>
+<fullyQualifiedTypeName name="javax.persistence.Id"/>
+<fullyQualifiedTypeName name="javax.persistence.Column"/>
+<fullyQualifiedTypeName name="java.util.Set"/>
+<fullyQualifiedTypeName name="java.util.HashSet"/>
+<fullyQualifiedTypeName name="com.mitchell.JXAB.model.MitchellClaim.Vehicles"/>
+<fullyQualifiedTypeName name="javax.persistence.Transient"/>
+<fullyQualifiedTypeName name="org.apache.log4j.BasicConfigurator"/>
 </qualifiedTypeNameHistroy>

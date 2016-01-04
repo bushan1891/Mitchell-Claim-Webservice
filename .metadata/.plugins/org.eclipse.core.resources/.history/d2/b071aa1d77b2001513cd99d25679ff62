@@ -1,0 +1,46 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.mitchell.com/examples/claim" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="MitchellClaim">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="ClaimNumber"/>
+        <xs:element type="xs:string" name="ClaimantFirstName"/>
+        <xs:element type="xs:string" name="ClaimantLastName"/>
+        <xs:element type="xs:string" name="Status"/>
+        <xs:element type="xs:dateTime" name="LossDate"/>
+        <xs:element name="LossInfo">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="CauseOfLoss"/>
+              <xs:element type="xs:dateTime" name="ReportedDate"/>
+              <xs:element type="xs:string" name="LossDescription"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:short" name="AssignedAdjusterID"/>
+        <xs:element name="Vehicles">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="VehicleDetails">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="Vin"/>
+                    <xs:element type="xs:short" name="ModelYear"/>
+                    <xs:element type="xs:string" name="MakeDescription"/>
+                    <xs:element type="xs:string" name="ModelDescription"/>
+                    <xs:element type="xs:string" name="EngineDescription"/>
+                    <xs:element type="xs:string" name="ExteriorColor"/>
+                    <xs:element type="xs:string" name="LicPlate"/>
+                    <xs:element type="xs:string" name="LicPlateState"/>
+                    <xs:element type="xs:date" name="LicPlateExpDate"/>
+                    <xs:element type="xs:string" name="DamageDescription"/>
+                    <xs:element type="xs:short" name="Mileage"/>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

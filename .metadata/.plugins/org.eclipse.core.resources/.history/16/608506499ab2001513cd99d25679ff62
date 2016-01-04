@@ -1,0 +1,26 @@
+package com.mitchell.Utils;
+
+import com.mitchell.JXAB.model.MitchellClaim;
+import com.mitchell.model.Claim;
+
+public class JAXBtoOBJ {
+
+	public static Claim toObj(MitchellClaim m){
+		Claim c = new Claim();
+		
+		c.setAssignedAdjusterId(m.getAssignedAdjusterID());
+		c.setClaimNumber(m.getClaimNumber());
+		c.setFirstName(m.getClaimantFirstName());
+		c.setLastName(m.getClaimantLastName());
+		c.setLossDate(m.getLossDate());
+		c.setLossDescription(m.getLossInfo());
+		c.setStatus(m.getStatus());
+		c.setVehicle(m.getVehicles());
+		
+		return c;
+		
+	}
+	
+	
+	
+}

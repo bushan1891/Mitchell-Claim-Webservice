@@ -1,0 +1,89 @@
+package com.mitchell.rest;
+
+import java.io.File;
+
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
+import javax.xml.namespace.QName;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+
+import org.xml.sax.SAXException;
+
+import com.mitchell.dao.ClaimImpliDAO;
+import com.mitchell.model.Claim;
+@Path("/claim")
+public class HomeController {
+
+	@GET
+	@Path("/{ClaimId}")
+	@Produces(MediaType.APPLICATION_XML)
+	public JAXBElement<Claim> getCliam(@PathParam("ClaimId") String Id){
+		int i=5;
+	    Claim c = new Claim();
+	    c.setClaimNumber("11144");
+	    ClaimImpliDAO dao = new ClaimImpliDAO(); 
+	    
+	   // dao.retriveRecordData(Id);
+	    
+		return new JAXBElement<Claim>(new QName("c"), Claim.class, c);
+	}
+	
+	@POST
+	@Path("/post")
+	@Produces(MediaType.APPLICATION_XML)
+	@Consumes(MediaType.APPLICATION_XML)
+	public Claim pushClaim(JAXBElement<Claim> claim){
+		
+		Claim new1 = claim.getValue();
+		
+		String output = claim.toString();
+	//	ClaimImpliDAO dao = new ClaimImpliDAO();
+		System.out.println("setPlanet " + output + new1.getClaimNumber());
+		
+		
+		
+		
+		try {
+		   
+		    //  JAXBContext context = JAXBContext.newInstance(Claim.class);
+          //   Marshaller m = context.createMarshaller();
+			
+        //    m.marshal(claim, new File("C://Users/Bushan/Desktop/validate.xml"));
+			
+			String schemaLang = "http://www.w3.org/2001/XMLSchema";
+
+		    SchemaFactory factory = SchemaFactory.newInstance(schemaLang);
+
+		    Schema schema = factory.newSchema(new StreamSource("C://Users/Bushan/Desktop/Mitchell/Coding Challenge/MitchellXSD.xsd"));
+		    Validator validator = schema.newValidator();
+
+		    validator.validate(new StreamSource("C://Users/Bushan/Desktop/validate.xml"));
+		    System.out.println("Validate successfull");
+
+		} catch (SAXException e) {
+		    System.out.println(" sax exception :" + e.getMessage());
+		} catch (Exception ex) {
+		    System.out.println("excep :" + ex.getMessage());
+		}
+		
+		
+		
+		return null ;
+		
+	}
+	
+	
+	
+}

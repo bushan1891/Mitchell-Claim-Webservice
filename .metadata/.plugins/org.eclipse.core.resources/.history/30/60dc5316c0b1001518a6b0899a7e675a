@@ -1,0 +1,15 @@
+package com.mitchell.rest;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+
+import com.mitchell.Utils.HibernateUtil;
+
+public class demoHibernate {
+	 
+	SessionFactory sf = HibernateUtil.getSessionFactory();
+	Session s = sf.openSession();
+	s.beginTransaction();
+		
+    
+}

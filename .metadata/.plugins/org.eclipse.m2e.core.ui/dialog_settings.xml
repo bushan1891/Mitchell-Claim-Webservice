@@ -12,22 +12,4 @@
 		<list key="issueManagementUrl">
 		</list>
 	</section>
-	<section name="wizardPage">
-		<list key="groupId">
-			<item value="Mitchell-ClaimWS"/>
-			<item value="Servers"/>
-			<item value="Mitchell-ClaimWebservice"/>
-		</list>
-		<list key="name">
-		</list>
-		<list key="artifactId">
-			<item value="Mitchell-ClaimWS"/>
-			<item value="Servers"/>
-			<item value="Mitchell-ClaimWebservice"/>
-		</list>
-		<list key="version">
-			<item value="0.0.1-SNAPSHOT"/>
-			<item value="0.0.1"/>
-		</list>
-	</section>
 </section>

@@ -1,80 +1,117 @@
 package com.mitchell.dao;
 
+import java.io.File;
+import java.io.StringWriter;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import javax.xml.bind.Unmarshaller;
+import javax.xml.transform.stream.StreamSource;
+import javax.xml.validation.Schema;
+import javax.xml.validation.SchemaFactory;
+import javax.xml.validation.Validator;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.xml.sax.SAXException;
+
 import com.mitchell.model.Claim;
+import com.mitchell.model.Vehicle;
 import com.mysql.jdbc.Connection;
 import com.mitchell.dao.*;
 import com.mitchell.exception.AppException;
+import com.mitchell.JXAB.model.MitchellClaim;
+import com.mitchell.JXAB.model.MitchellClaim.Vehicles;
+import com.mitchell.JXAB.model.ObjectFactory;
 import com.mitchell.Utils.*;
 
-public class ClaimImpliDAO implements claimDAO {
+public class ClaimImpliDAO  {
 
-	@Override
-	public String insert(String data) {
+	public Claim insert(JAXBElement<MitchellClaim> claim) throws JAXBException {
 		// TODO Auto-generated method stub
+	
+     
+        StringWriter writer = new StringWriter();
+		File file = new File("unvalidated.xml");
+		JAXBContext context = JAXBContext.newInstance(MitchellClaim.class);            
+		Marshaller m = context.createMarshaller();
+		m.marshal(claim, file);
+		m.marshal(claim, writer);
 		
-		Connection con = (Connection) DBUtils.getConnection();
+		String theXML = writer.toString();
+		System.out.println(theXML);
 		
+		// VALIDATING XML AGAIST XSD 
+		try {  
+			String schemaLang = "http://www.w3.org/2001/XMLSchema";
+		    SchemaFactory factory = SchemaFactory.newInstance(schemaLang);
+		    Schema schema = factory.newSchema(new StreamSource("C://Users/Bushan/Desktop/Mitchell/Coding Challenge/MitchellClaim.xsd"));
+		    Validator validator = schema.newValidator();
+
+		    validator.validate(new StreamSource("C://Users/Bushan/Desktop/unvalidated.xml"));
+		    System.out.println("Validate successfull");
+		   		    
+		} catch (SAXException e) {
+		    System.out.println(" sax exception :" + e.getMessage());
+		} catch (Exception ex) {
+		    System.out.println("excep :" + ex.getMessage());
+		}
 		
-		return null;
+		 JAXBContext jc = JAXBContext.newInstance(MitchellClaim.class);
+	     Unmarshaller unmarshaller = jc.createUnmarshaller();
+	     File xml = new File("C://Users/Bushan/Desktop/unvalidated.xml");
+	        
+	     MitchellClaim mc = (MitchellClaim) unmarshaller.unmarshal(xml);
+         System.out.println(mc.getClaimNumber()); 
+		
+		 Claim pojo = JAXBtoOBJ.toObj(mc);
+	         Vehicles v = mc.getVehicles();
+		     
+	         
+		   
+		   
+		   
+		 
+		// SAVE POJO TO DB USE HIBERNATE
+		 
+		System.out.println("hibernate pushing data at insert");
+		 
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		Transaction tx = session.beginTransaction();
+		session.save(pojo);
+		tx.commit();
+        session.close();
+        
+		return pojo;
 	}
 
-	@Override
+	
 	public List<Claim> retriveData() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
-	@Override
+	
 	public Claim retriveRecordData(String claimNumber) {
 		// TODO Auto-generated method stub
-		
-		Claim claim = new Claim();
-
-		Connection con = (Connection) DBUtils.getConnection();
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		
-		try {
-			ps = con.prepareStatement("SELECT * FROM claim WHERE ID=?");
-			Integer id = Integer.parseInt(claimNumber);
-			ps.setInt(1, id);
-			rs = ps.executeQuery();
-
-			if (rs.next()) {
-				
-				claim.setAssignedAdjusterId(rs.getByte(""));
-				claim.setCauseOfLoss(rs.getString(""));
-				claim.setClaimNumber(rs.getString(""));
-				claim.setFirstName(rs.getString(""));
-				claim.setLastName(rs.getString(""));
-				claim.setLossDate(rs.getDate(""));
-				claim.setLossDescription(rs.getString(""));
-				claim.setReportedDate(rs.getDate(""));
-				claim.setStatus(rs.getString(""));	
-				
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			
-		} finally {
-			DBUtils.closeResource(ps, rs, con);
-		}
-
-		
-		
-		
-		return claim;
+		return null;
 	}
 
-	@Override
+	
 	public String update(String data) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	
 }

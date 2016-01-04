@@ -1,0 +1,45 @@
+package com.mitchell.rest;
+
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
+import javax.ws.rs.Produces;
+import javax.ws.rs.core.MediaType;
+import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+
+import com.mitchell.dao.ClaimImpliDAO;
+import com.mitchell.model.Claim;
+@Path("/claim")
+public class HomeController {
+
+	@GET
+	@Path("/{ClaimId}")
+	@Produces(MediaType.APPLICATION_XML)
+	public JAXBElement<Claim> getCliam(@PathParam("ClaimId") String Id){
+		int i=5;
+	    Claim c = new Claim();
+	    c.setClaimNumber("111");
+	    ClaimImpliDAO dao = new ClaimImpliDAO(); 
+	    
+	   // dao.retriveRecordData(Id);
+	    
+		return new JAXBElement<Claim>(new QName("c"), Claim.class, c);
+	}
+	
+//	@GET
+//	@Path("/{ClaimId}")
+//	@Produces(MediaType.APPLICATION_XML)
+//	@Consumes(MediaType.APPLICATION_XML)
+//	public JAXBElement<Claim> pushClaim(Claim claim){
+//		 
+//		Claim c = new Claim();
+//		
+//		return JAXBElement<Claim>(new QName("c"), Claim.class, c);
+//		
+//	}
+	
+	
+	
+}

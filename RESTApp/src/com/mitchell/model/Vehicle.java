@@ -5,6 +5,7 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -16,11 +17,22 @@ public class Vehicle implements java.io.Serializable{
 
 	private static final long serialVersionUID = 1L;
 	
-	
-	private String vin;
+	@Id
+	private int vin;
 	private int modelYear;
+    private String makeDes;
+	private String modelDes;
+	private String engineDes;
+	private String color;
+	private String licPlate;
+	private String licPlateState;
+	@Transient
+	private Date licPlateExp;
+	private String damageDes;
+	private int mileage;
+	
 	public Vehicle( int modelYear, String makeDes, String modelDes, String engineDes, String color,
-			String licPlate, String licPlateState, String damageDes, int mileage, Claim claim) {
+			String licPlate, String licPlateState, String damageDes, int mileage) {
 		super();
 		this.modelYear = modelYear;
 		this.makeDes = makeDes;
@@ -31,30 +43,18 @@ public class Vehicle implements java.io.Serializable{
 		this.licPlateState = licPlateState;
 		this.damageDes = damageDes;
 		this.mileage = mileage;
-		this.claim = claim;
 	}
-
-	private String makeDes;
-	private String modelDes;
-	private String engineDes;
-	private String color;
-	private String licPlate;
-	private String licPlateState;
-	@Transient
-	private Date licPlateExp;
-	private String damageDes;
-	private int mileage;
-	private Claim claim;
+	
 	
 	public Vehicle() {};
 	
 	@Id
-    @Column(name = "ARTICLE_ID")
-	public String getVin() {
+	@GeneratedValue
+	public int getVin() {
 		return vin;
 	}
 	
-	public void setVin(String vin)
+	public void setVin(int vin)
 	{
 		this.vin = vin;
 	}
@@ -139,13 +139,5 @@ public class Vehicle implements java.io.Serializable{
 	}
 	
 	
-	public void setClaim(Claim c) {
-		this.claim = c;
-	}
-	
-	@JsonBackReference
-	public Claim getClaim() {
-		return claim;
-	}
 }
 

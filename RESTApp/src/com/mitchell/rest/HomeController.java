@@ -43,7 +43,7 @@ public class HomeController {
 	    
 		return new JAXBElement<Claim>(new QName("c"), Claim.class, c);
 	}
-	
+
 	
 	@POST
 	@Path("/post")
@@ -65,7 +65,7 @@ public class HomeController {
 	public Claim putClaim(JAXBElement<MitchellClaim> claim) throws JAXBException{
 		
 	 	ClaimImpliDAO dao = new ClaimImpliDAO();
-		Claim pojo = dao.insert(claim);
+		Claim pojo = dao.update(claim);
 		
 		return pojo ;
 		

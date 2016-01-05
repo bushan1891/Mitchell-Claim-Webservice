@@ -34,84 +34,96 @@ import com.mitchell.JXAB.model.MitchellClaim.Vehicles;
 import com.mitchell.JXAB.model.ObjectFactory;
 import com.mitchell.Utils.*;
 
-public class ClaimImpliDAO  {
+public class ClaimImpliDAO {
 
 	public Claim insert(JAXBElement<MitchellClaim> claim) throws JAXBException {
-		// TODO Auto-generated method stub
-	
-     
-        StringWriter writer = new StringWriter();
-		File file = new File("unvalidated.xml");
-		JAXBContext context = JAXBContext.newInstance(MitchellClaim.class);            
-		Marshaller m = context.createMarshaller();
-		m.marshal(claim, file);
-		m.marshal(claim, writer);
 		
-		String theXML = writer.toString();
-		System.out.println(theXML);
+         // VALIDATING OUR DATA 
 		
-		// VALIDATING XML AGAIST XSD 
-		try {  
-			String schemaLang = "http://www.w3.org/2001/XMLSchema";
-		    SchemaFactory factory = SchemaFactory.newInstance(schemaLang);
-		    Schema schema = factory.newSchema(new StreamSource("C://Users/Bushan/Desktop/Mitchell/Coding Challenge/MitchellClaim.xsd"));
-		    Validator validator = schema.newValidator();
+        MitchellClaim mc = ValidatorJAXB.Validatoor(claim); 
+		Claim pojo = JAXBtoOBJ.toObj(mc);
 
-		    validator.validate(new StreamSource("C://Users/Bushan/Desktop/unvalidated.xml"));
-		    System.out.println("Validate successfull");
-		   		    
-		} catch (SAXException e) {
-		    System.out.println(" sax exception :" + e.getMessage());
-		} catch (Exception ex) {
-		    System.out.println("excep :" + ex.getMessage());
-		}
-		
-		 JAXBContext jc = JAXBContext.newInstance(MitchellClaim.class);
-	     Unmarshaller unmarshaller = jc.createUnmarshaller();
-	     File xml = new File("C://Users/Bushan/Desktop/unvalidated.xml");
-	        
-	     MitchellClaim mc = (MitchellClaim) unmarshaller.unmarshal(xml);
-         System.out.println(mc.getClaimNumber()); 
-		
-		 Claim pojo = JAXBtoOBJ.toObj(mc);
-	         Vehicles v = mc.getVehicles();
-		     
-	         
-		   
-		   
-		   
-		 
 		// SAVE POJO TO DB USE HIBERNATE
-		 
+
 		System.out.println("hibernate pushing data at insert");
-		 
+
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
 		session.save(pojo);
 		tx.commit();
-        session.close();
-        
+		session.close();
 		return pojo;
 	}
 
-	
 	public List<Claim> retriveData() {
-		// TODO Auto-generated method stub
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		try {
+			List<Claim> list = session.createCriteria(Claim.class).list();
+			Claim claim = list.get(0);
+			if (claim.getClaimNumber() != null) {
+				return list;
+			}
+
+		} catch (Exception e) {
+			System.out.println("no elements");
+		}
 		return null;
 	}
 
-	
 	public Claim retriveRecordData(String claimNumber) {
-		// TODO Auto-generated method stub
+
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		Transaction tx = session.beginTransaction();
+		try {
+			Claim claim = (Claim) session.get(Claim.class, claimNumber);
+			if (claim.getClaimNumber() != null) {
+				return claim;
+			}
+		} catch (Exception e) {
+			System.out.println(e);
+		}
+		// System.out.println(claim.getFirstName());
+
 		return null;
 	}
 
-	
-	public String update(String data) {
-		// TODO Auto-generated method stub
+	public Claim update(JAXBElement<MitchellClaim> claim) throws JAXBException {
+        
+		MitchellClaim mc = ValidatorJAXB.Validatoor(claim);      
+		Claim pojo =  JAXBtoOBJ.toObj(mc);
+		
+		if(claim!=null){
+			SessionFactory sf = HibernateUtil.getSessionFactory();
+			Session session = sf.openSession();
+			Transaction tx = session.beginTransaction();	
+			session.update(pojo);
+			tx.commit();
+			session.close();
+			return pojo;
+		}
+		
+		
 		return null;
 	}
-
 	
+	public boolean delete(String ClaimID ){
+		
+		SessionFactory sf = HibernateUtil.getSessionFactory();
+		Session session = sf.openSession();
+		Transaction tx = session.beginTransaction();
+		Claim claim =  (Claim) session.get(Claim.class, ClaimID);
+		session.delete(claim);
+		tx.commit();
+		session.close();
+		
+		return false;
+		
+	}
+	
+	
+
 }

@@ -31,8 +31,8 @@ public class Claim implements java.io.Serializable{
 	private String firstName;
 	private String lastName;
 	private String status;
-	@Transient
-	private XMLGregorianCalendar lossDate;
+	
+	private Date lossDate;
 	private String causeOfLoss;
 	private Date reportedDate;
 	private String lossDescription;
@@ -46,13 +46,7 @@ public class Claim implements java.io.Serializable{
 	public String getClaimNumber() {
 		return claimNumber;
 	}
-	 @OneToMany(cascade = CascadeType.ALL)
-	    @JoinTable(
-	            name = "CLAIM_VEHICLE",
-	            joinColumns = @JoinColumn(name = "CLAIM_ID"),
-	            inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID")
-	    )
-	
+	 
 	
 	public void setClaimNumber(String claimNumber) {
 		this.claimNumber = claimNumber;
@@ -82,11 +76,11 @@ public class Claim implements java.io.Serializable{
 		this.status = status;
 	}
 	@Transient
-	public XMLGregorianCalendar getLossDate() {
+	public Date getLossDate() {
 		return lossDate;
 	}
 	
-	public void setLossDate(XMLGregorianCalendar xmlGregorianCalendar) {
+	public void setLossDate(Date xmlGregorianCalendar) {
 		this.lossDate = xmlGregorianCalendar;
 	}
 	
@@ -127,13 +121,10 @@ public class Claim implements java.io.Serializable{
 		this.vehicle = vechicle;
 	}
 	
-	@JsonManagedReference
 	@OneToMany(cascade = CascadeType.ALL)
-	@JoinTable(
-	        name = "CATEGORY_ARTICLE",
-	        joinColumns = @JoinColumn(name = "CLAIM_ID"),
-	        inverseJoinColumns = @JoinColumn(name = "VEHICLE_ID")
-	)
+	@JoinTable(name = "Cliam_vehicle", 
+	joinColumns = { @JoinColumn(name = "Claim_ID") }, 
+	inverseJoinColumns = { @JoinColumn(name = "Vehicle_ID") })
 	public Set<Vehicle> getVehicle() {
 		return this.vehicle;
 	}

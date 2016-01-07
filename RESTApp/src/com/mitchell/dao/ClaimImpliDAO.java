@@ -1,37 +1,13 @@
 package com.mitchell.dao;
 
-import java.io.File;
-import java.io.StringWriter;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.transform.stream.StreamSource;
-import javax.xml.validation.Schema;
-import javax.xml.validation.SchemaFactory;
-import javax.xml.validation.Validator;
-
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.xml.sax.SAXException;
-
 import com.mitchell.model.Claim;
-import com.mitchell.model.Vehicle;
-import com.mysql.jdbc.Connection;
-import com.mitchell.dao.*;
-import com.mitchell.exception.AppException;
 import com.mitchell.JXAB.model.MitchellClaim;
-import com.mitchell.JXAB.model.MitchellClaim.Vehicles;
-import com.mitchell.JXAB.model.ObjectFactory;
+
 import com.mitchell.Utils.*;
 
 public class ClaimImpliDAO {
@@ -50,24 +26,18 @@ public class ClaimImpliDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		session.save(pojo);
-		tx.commit();
-		session.close();
+		try {
+			session.save(pojo);
+			tx.commit();
+			session.close();
+		} catch (Exception e) {
+			System.out.println(e);
+			return null;
+		}
 
 		return pojo;
-	}
 
-	/*
-	 * public List<Claim> retriveData() {
-	 * 
-	 * SessionFactory sf = HibernateUtil.getSessionFactory(); Session session =
-	 * sf.openSession(); try { List<Claim> list =
-	 * session.createCriteria(Claim.class).list(); Claim claim = list.get(0); if
-	 * (claim.getClaimNumber() != null) { return list; }
-	 * 
-	 * } catch (Exception e) { System.out.println("no elements"); } return null;
-	 * }
-	 */
+	}
 
 	public Claim retriveRecordData(String claimNumber) {
 
@@ -76,15 +46,13 @@ public class ClaimImpliDAO {
 		Transaction tx = session.beginTransaction();
 		try {
 			Claim claim = (Claim) session.get(Claim.class, claimNumber);
-			if (claim.getClaimNumber() != null) {
-				tx.commit();
-				session.close();
-				return claim;
-			}
+			tx.commit();
+			session.close();
+			return claim;
+
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		// System.out.println(claim.getFirstName());
 
 		return null;
 	}
@@ -98,12 +66,23 @@ public class ClaimImpliDAO {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			Transaction tx = session.beginTransaction();
-			session.update(pojo);
-			tx.commit();
-			session.close();
-			return pojo;
-		}
+			Claim temp = (Claim) session.load(Claim.class, pojo.getClaimNumber());
 
+			// CHECKING IF THE VALID RECORD EXSIST
+
+			if (temp.getClaimNumber().equals(pojo.getClaimNumber()) && !temp.getClaimNumber().equals(null)) {
+				try {
+					session.update(pojo);
+					tx.commit();
+					session.close();
+					return pojo;
+				} catch (Exception e) {
+					System.out.println(e);
+					System.out.println("Update failed");
+					return null;
+				}
+			}
+		}
 		return null;
 	}
 
@@ -114,8 +93,11 @@ public class ClaimImpliDAO {
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		claim = (Claim) session.load(Claim.class, ClaimID);
-		if (claim.getClaimNumber().equals(ClaimID) && !claim.getClaimNumber().equals(null) ) {
+		claim = (Claim) session.get(Claim.class, ClaimID);
+
+		// CHECKING IF THE VALID RECORD EXSIST
+
+		if (claim.getClaimNumber().equals(ClaimID) && !claim.getClaimNumber().equals(null)) {
 			try {
 				session.delete(claim);
 				tx.commit();

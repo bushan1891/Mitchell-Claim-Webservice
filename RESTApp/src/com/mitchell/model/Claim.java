@@ -8,6 +8,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
@@ -121,7 +122,7 @@ public class Claim implements java.io.Serializable{
 		this.vehicle = vechicle;
 	}
 	
-	@OneToMany(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	@JoinTable(name = "Cliam_vehicle", 
 	joinColumns = { @JoinColumn(name = "Claim_ID") }, 
 	inverseJoinColumns = { @JoinColumn(name = "Vehicle_ID") })

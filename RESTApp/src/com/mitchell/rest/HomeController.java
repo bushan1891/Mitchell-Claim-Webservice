@@ -2,7 +2,6 @@ package com.mitchell.rest;
 
 import java.io.File;
 
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -29,59 +28,60 @@ import com.mitchell.JXAB.model.MitchellClaim;
 import com.mitchell.Utils.JAXBtoOBJ;
 import com.mitchell.dao.ClaimImpliDAO;
 import com.mitchell.model.Claim;
+
 @Path("/claim")
 public class HomeController {
 
 	@GET
 	@Path("/{ClaimId}")
 	@Produces(MediaType.APPLICATION_XML)
-	public JAXBElement<Claim> getCliam(@PathParam("ClaimId") String Id){
-	    // to obtain  the data from the backstore 
-		
-		ClaimImpliDAO dao = new ClaimImpliDAO(); 
-     	Claim c  = dao.retriveRecordData(Id);
-	    
+	public JAXBElement<Claim> getCliam(@PathParam("ClaimId") String Id) {
+		// to obtain the data from the backstore
+
+		ClaimImpliDAO dao = new ClaimImpliDAO();
+		Claim c = dao.retriveRecordData(Id);
+
 		return new JAXBElement<Claim>(new QName("c"), Claim.class, c);
 	}
 
-	
 	@POST
 	@Path("/post")
 	@Produces(MediaType.APPLICATION_XML)
 	@Consumes(MediaType.APPLICATION_XML)
-	public Claim pushClaim(JAXBElement<MitchellClaim> claim) throws JAXBException{
-		
-	 	ClaimImpliDAO dao = new ClaimImpliDAO();
+	public Claim pushClaim(JAXBElement<MitchellClaim> claim) throws JAXBException {
+
+		ClaimImpliDAO dao = new ClaimImpliDAO();
 		Claim pojo = dao.insert(claim);
-		
-		return pojo ;
-		
+
+		return pojo;
+
 	}
-	
+
 	@PUT
 	@Path("/put")
 	@Produces(MediaType.APPLICATION_XML)
 	@Consumes(MediaType.APPLICATION_XML)
-	public Claim putClaim(JAXBElement<MitchellClaim> claim) throws JAXBException{
-		
-	 	ClaimImpliDAO dao = new ClaimImpliDAO();
+	public Claim putClaim(JAXBElement<MitchellClaim> claim) throws JAXBException {
+
+		ClaimImpliDAO dao = new ClaimImpliDAO();
 		Claim pojo = dao.update(claim);
-		
-		return pojo ;
-		
+
+		return pojo;
+
 	}
-	
+
 	@DELETE
 	@Path("/delete/{Claim_ID}")
 	@Consumes(MediaType.APPLICATION_XML)
-	public int deleteClaim(@PathParam("ClaimId") String Id){
-		 
-		
-		
-		return 0;
-		
+	public boolean deleteClaim(@PathParam("Claim_ID") String Id) {
+
+		ClaimImpliDAO dao = new ClaimImpliDAO();
+		boolean delete = dao.delete(Id);
+		if (delete)
+			return true;
+
+		return false;
+
 	}
-	
-	
-	
+
 }

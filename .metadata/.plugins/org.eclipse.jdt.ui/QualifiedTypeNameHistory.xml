@@ -38,4 +38,6 @@
 <fullyQualifiedTypeName name="com.mitchell.JXAB.model.MitchellClaim.Vehicles"/>
 <fullyQualifiedTypeName name="javax.persistence.Transient"/>
 <fullyQualifiedTypeName name="org.apache.log4j.BasicConfigurator"/>
+<fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
+<fullyQualifiedTypeName name="javax.xml.datatype.XMLGregorianCalendar"/>
 </qualifiedTypeNameHistroy>

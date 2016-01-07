@@ -1,0 +1,63 @@
+package com.mitchell.junitTest;
+
+import static org.junit.Assert.*;
+
+import java.util.List;
+import java.util.Set;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import com.mitchell.dao.ClaimImpliDAO;
+import com.mitchell.model.Claim;
+import com.mitchell.model.Vehicle;
+
+public class JunitTestDAO {
+
+	private static final String claimid = "22c9c23bac142856018ce14a26b6c299";
+	private static ClaimImpliDAO dao = new ClaimImpliDAO();
+
+	@Before
+	public void setUp() throws Exception {
+
+	}
+
+	@After
+	public void tearDown() throws Exception {
+
+	}
+
+	@Test
+	public void FetchData() {
+
+		Claim claim = dao.retriveRecordData(claimid);
+		Vehicle vehicle = new Vehicle();
+		// To verify if the correct data has been pulled
+		assertNotNull(claim);
+		assertNotNull(claim.getClaimNumber());
+		assertEquals(claim.getClaimNumber(), claimid);
+
+	}
+
+	@Test
+	public void pushData() {
+		Claim claim = dao.retriveRecordData(claimid);
+		// validating data pushed
+		assertNotNull(claim);
+		assertEquals(claim.getClaimNumber(), claimid);
+
+	}
+
+	public void deletedata() {
+
+		//Claim claim = dao.retriveRecordData(claimid);
+		//assertNotNull(claim);
+
+		dao.delete(claimid);
+
+	Claim	claim = dao.retriveRecordData(claimid);
+		assertNull(claim);
+
+	}
+}

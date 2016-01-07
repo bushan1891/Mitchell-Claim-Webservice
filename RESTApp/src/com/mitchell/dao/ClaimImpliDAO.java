@@ -37,10 +37,10 @@ import com.mitchell.Utils.*;
 public class ClaimImpliDAO {
 
 	public Claim insert(JAXBElement<MitchellClaim> claim) throws JAXBException {
-		
-         // VALIDATING OUR DATA 
-		
-        MitchellClaim mc = ValidatorJAXB.Validatoor(claim); 
+
+		// VALIDATING OUR DATA
+
+		MitchellClaim mc = ValidatorJAXB.Validatoor(claim);
 		Claim pojo = JAXBtoOBJ.toObj(mc);
 
 		// SAVE POJO TO DB USE HIBERNATE
@@ -53,25 +53,21 @@ public class ClaimImpliDAO {
 		session.save(pojo);
 		tx.commit();
 		session.close();
+
 		return pojo;
 	}
 
-	public List<Claim> retriveData() {
-
-		SessionFactory sf = HibernateUtil.getSessionFactory();
-		Session session = sf.openSession();
-		try {
-			List<Claim> list = session.createCriteria(Claim.class).list();
-			Claim claim = list.get(0);
-			if (claim.getClaimNumber() != null) {
-				return list;
-			}
-
-		} catch (Exception e) {
-			System.out.println("no elements");
-		}
-		return null;
-	}
+	/*
+	 * public List<Claim> retriveData() {
+	 * 
+	 * SessionFactory sf = HibernateUtil.getSessionFactory(); Session session =
+	 * sf.openSession(); try { List<Claim> list =
+	 * session.createCriteria(Claim.class).list(); Claim claim = list.get(0); if
+	 * (claim.getClaimNumber() != null) { return list; }
+	 * 
+	 * } catch (Exception e) { System.out.println("no elements"); } return null;
+	 * }
+	 */
 
 	public Claim retriveRecordData(String claimNumber) {
 
@@ -81,6 +77,8 @@ public class ClaimImpliDAO {
 		try {
 			Claim claim = (Claim) session.get(Claim.class, claimNumber);
 			if (claim.getClaimNumber() != null) {
+				tx.commit();
+				session.close();
 				return claim;
 			}
 		} catch (Exception e) {
@@ -92,38 +90,45 @@ public class ClaimImpliDAO {
 	}
 
 	public Claim update(JAXBElement<MitchellClaim> claim) throws JAXBException {
-        
-		MitchellClaim mc = ValidatorJAXB.Validatoor(claim);      
-		Claim pojo =  JAXBtoOBJ.toObj(mc);
-		
-		if(claim!=null){
+
+		MitchellClaim mc = ValidatorJAXB.Validatoor(claim);
+		Claim pojo = JAXBtoOBJ.toObj(mc);
+
+		if (claim != null) {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
-			Transaction tx = session.beginTransaction();	
+			Transaction tx = session.beginTransaction();
 			session.update(pojo);
 			tx.commit();
 			session.close();
 			return pojo;
 		}
-		
-		
+
 		return null;
 	}
-	
-	public boolean delete(String ClaimID ){
-		
+
+	public boolean delete(String ClaimID) {
+
+		Claim claim;
+
 		SessionFactory sf = HibernateUtil.getSessionFactory();
 		Session session = sf.openSession();
 		Transaction tx = session.beginTransaction();
-		Claim claim =  (Claim) session.get(Claim.class, ClaimID);
-		session.delete(claim);
-		tx.commit();
-		session.close();
-		
+		claim = (Claim) session.load(Claim.class, ClaimID);
+		if (claim.getClaimNumber().equals(ClaimID) && !claim.getClaimNumber().equals(null) ) {
+			try {
+				session.delete(claim);
+				tx.commit();
+				session.close();
+				return true;
+			} catch (Exception e) {
+				System.out.println(e);
+				return false;
+			}
+		}
+
 		return false;
-		
+
 	}
-	
-	
 
 }

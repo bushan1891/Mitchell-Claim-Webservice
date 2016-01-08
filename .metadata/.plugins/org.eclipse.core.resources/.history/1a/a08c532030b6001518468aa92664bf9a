@@ -42,7 +42,7 @@ public class JunitTestDAO {
 		assertEquals(claim.getClaimNumber(), claimid);
 
 	}
-	@Test
+
 	public void deletedata() {
 
 		boolean result = dao.delete(claimid);

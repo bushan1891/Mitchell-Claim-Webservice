@@ -17,7 +17,6 @@ public class ClaimImpliDAO {
 		// VALIDATING OUR DATA
 
 		MitchellClaim mc = ValidatorJAXB.Validatoor(claim);
-		
 		Claim pojo = JAXBtoOBJ.toObj(mc);
 
 		// SAVE POJO TO DB USE HIBERNATE

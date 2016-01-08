@@ -27,7 +27,6 @@ public class ValidatorJAXB {
 		StringWriter writer = new StringWriter();
 		File file = new File("unvalidated.xml");
 		JAXBContext context = JAXBContext.newInstance(MitchellClaim.class);
-		
 		Marshaller m = context.createMarshaller();
 		m.marshal(claim, file);
 		m.marshal(claim, writer);

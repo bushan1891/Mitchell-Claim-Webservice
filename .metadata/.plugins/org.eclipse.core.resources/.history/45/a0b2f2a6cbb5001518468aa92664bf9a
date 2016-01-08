@@ -14,5 +14,10 @@ public class RESTAppconfig extends ResourceConfig {
 	public RESTAppconfig(){
 		System.out.println("called");
 		packages("com.mitchell.rest");
-	}	
+	
+	
+	
+	
+	}
+	
 }

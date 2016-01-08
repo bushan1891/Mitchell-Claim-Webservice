@@ -35,13 +35,13 @@ public class HomeController {
 	@GET
 	@Path("/{ClaimId}")
 	@Produces(MediaType.APPLICATION_XML)
-	public Claim getCliam(@PathParam("ClaimId") String Id) {
+	public JAXBElement<Claim> getCliam(@PathParam("ClaimId") String Id) {
 		// to obtain the data from the backstore
 
 		ClaimImpliDAO dao = new ClaimImpliDAO();
-		Claim claim = dao.retriveRecordData(Id);
+		Claim c = dao.retriveRecordData(Id);
 
-		return claim;
+		return new JAXBElement<Claim>(new QName("c"), Claim.class, c);
 	}
 
 	@POST

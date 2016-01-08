@@ -39,9 +39,9 @@ public class HomeController {
 		// to obtain the data from the backstore
 
 		ClaimImpliDAO dao = new ClaimImpliDAO();
-		Claim claim = dao.retriveRecordData(Id);
+		Claim c = dao.retriveRecordData(Id);
 
-		return claim;
+		return c;
 	}
 
 	@POST

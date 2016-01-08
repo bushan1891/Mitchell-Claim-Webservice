@@ -17,7 +17,6 @@ public class JAXBtoOBJ {
 	public static Claim toObj(MitchellClaim m) {
 		Claim c = new Claim();
 		Set<Vehicle> v = new HashSet<Vehicle>();
-		
 		short s = m.getAssignedAdjusterID();
 
 		if (s != 0)
